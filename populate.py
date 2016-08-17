@@ -5,6 +5,7 @@ class DataFaker:
 
 	def arbiter(self,column): 
 		# incoming
+		print column
 		if column == 'expectations': 
 			return random.choice(['JOB','RAWSKILL','ENTREP','OTHER'])
 		if column == 'learning_accommodations': 
