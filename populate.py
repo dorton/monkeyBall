@@ -10,10 +10,13 @@ class DataFaker:
 			return random.choice(['JOB','RAWSKILL','ENTREP','OTHER'])
 		if column == 'learning_accommodations': 
 			return random.choice(['LEARNING','EMOTIONAL','PHYSICAL','OTHER','NONE'])
-		if column in ['live_problem_solving','efforts_to_date','current_skills','years_employment','weekly_hours_work']:
+		if column in ['outgoing_skills','live_problem_solving','efforts_to_date','current_skills','years_employment']:
 			return self.randomScore()
 		# outgoing
-		# if column == 12
+		if column == 'weekly_hours_work':
+			return random.randint(0,30)
+		if column in ['graduated,job_placement_6_months','expectation_fulfilled']:
+			return random.randint(0,1)
 
 
 	def randomScore(self): 
@@ -21,7 +24,7 @@ class DataFaker:
 
 
 outfile = open('newMonkeys.csv', 'w')
-daFieldNames = 'name,campus,cohort,start_date,expectations,learning_accommodations ,live_problem_solving,efforts_to_date,current_skills,years_employment,weekly_hours_work,graduated,outgoing_skills,job_placement_6_months,expectation_fulfillment'.split(',')
+daFieldNames = 'name,campus,cohort,start_date,expectations,learning_accommodations,live_problem_solving,efforts_to_date,current_skills,years_employment,weekly_hours_work,graduated,week_dropped,outgoing_skills,job_placement_6_months,expectation_fulfillment'.split(',')
 writer = csv.DictWriter(outfile,fieldnames=daFieldNames)
 
 with open('monkeys.csv', 'rb') as csvfile:
