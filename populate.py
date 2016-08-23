@@ -1,30 +1,30 @@
-import random 
-import csv	
+import random
+import csv
 
 class DataFaker:
 
-	def arbiter(self,column): 
+	def arbiter(self,column):
 		# incoming
-		if column == 'expectations': 
+		if column == 'expectations':
 			return random.choice(['JOB','RAWSKILL','ENTREP','OTHER'])
-		if column == 'learning_accommodations': 
+		if column == 'learning_accommodations':
 			return random.choice(['LEARNING','EMOTIONAL','PHYSICAL','OTHER','NONE'])
 		if column in ['outgoing_skills','live_problem_solving','efforts_to_date','current_skills','years_employment']:
 			return self.randomScore()
 		# outgoing
 		if column == 'weekly_hours_work':
-			return random.randint(0,30)
+			return random.randint(10,30)
 		if column in ['graduated','job_placement_6_months','expectation_fulfillment']:
-			return random.randint(0,1)
+			return random.choice(['0','1','1','1','1'])
 		if column == 'week_dropped':
-			if random.random() > .9:  
-				return random.randint(1,12)
-			else: 
+			if random.random() > .9:
+				return random.randint(1,6)
+			else:
 				return 'n/a'
-		return 
+		return
 
 
-	def randomScore(self): 
+	def randomScore(self):
 		return random.randint(1,5)
 
 
@@ -33,15 +33,15 @@ daFieldNames = 'name,campus,cohort,start_date,expectations,learning_accommodatio
 writer = csv.DictWriter(outfile,fieldnames=daFieldNames)
 writer.writeheader()
 
-with open('monkeys.csv', 'rb') as csvfile:
-	csvLines = csv.DictReader(csvfile, delimiter=',')
+with open('monkeys.csv', 'rb') as monkeys:
+	csvLines = csv.DictReader(monkeys, delimiter=',')
 	dataFaker = DataFaker()
-	for rowDict in csvLines:
-		for heading in rowDict:
+	for row in csvLines:
+		for heading in row:
 			randVal = dataFaker.arbiter(heading)
 			if randVal != None:
-				rowDict[heading] = randVal
-		writer.writerow(rowDict)
+				row[heading] = randVal
+		writer.writerow(row)
 
 
 outfile.close()
