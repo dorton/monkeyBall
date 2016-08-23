@@ -15,13 +15,13 @@ class DataFaker:
 		if column == 'weekly_hours_work':
 			return random.randint(10,30)
 		if column in ['graduated','job_placement_6_months','expectation_fulfillment']:
-			return random.choice(['0','1','1','1','1'])
+			return 0 if random.random() > .9 else 1
 		if column == 'week_dropped':
 			if random.random() > .9:
 				return random.randint(1,6)
 			else:
 				return 'n/a'
-		return
+		return None
 
 
 	def randomScore(self):
