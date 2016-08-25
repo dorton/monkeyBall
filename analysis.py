@@ -55,6 +55,7 @@ if args.action == 'plot':
 		plt.savefig(args.outfile)
 	except: 
 		print 'no outfile specified. saving to plot.png'
+		plt.savefig('plot.png')
 	# todos:
 		# spot-check for correctness (done 8/24)
 		# use matplotlib or pyplot to actually make a plot, write it to the outfile. (done 8/24)
