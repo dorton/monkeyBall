@@ -22,8 +22,8 @@ parser.add_argument('-o','--outfile',
 	help = 'the file to which you want to write your data plots.')
 
 args = parser.parse_args()
-# HELPER FUNCTIONS
 
+# HELPER FUNCTIONS
 def successRate(field,value,df,metric):
 	queriedFrame = df.loc[df[field] == value]
 	successTotal = 0
