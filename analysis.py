@@ -51,8 +51,10 @@ if args.action == 'plot':
 	plt.ylabel(args.metric.replace ("_", " ").upper())
 	title = ("%s tested against %s." % (args.feature.replace ("_", " "), args.metric.replace ("_", " "))).upper()
 	plt.title(title)
-
-	plt.show()
+	try: 
+		plt.savefig(args.outfile)
+	except: 
+		print 'no outfile specified. saving to plot.png'
 	# todos:
 		# spot-check for correctness (done 8/24)
 		# use matplotlib or pyplot to actually make a plot, write it to the outfile. (done 8/24)
