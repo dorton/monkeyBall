@@ -54,5 +54,5 @@ if args.action == 'plot':
 
 	plt.show()
 	# todos:
-		# spot-check for correctness
-		# use matplotlib or pyplot to actually make a plot, write it to the outfile.
+		# spot-check for correctness (done 8/24)
+		# use matplotlib or pyplot to actually make a plot, write it to the outfile. (done 8/24)
