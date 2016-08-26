@@ -4,7 +4,7 @@ class MonkeysController < ApplicationController
   # GET /monkeys
   # GET /monkeys.json
   def index
-    @monkeys = Monkey.all
+    @monkeys = Monkey.joins(:start_date).order("start_dates.start_date DESC").joins(:cohort).order("cohorts.name").order("monkeys.last_name")
   end
 
   # GET /monkeys/1
@@ -69,6 +69,6 @@ class MonkeysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def monkey_params
-      params.fetch(:monkey, {}).permit(:first_name, :last_name, :cohort_id, :school_id, :start_date_id)
+      params.fetch(:monkey, {}).permit(:first_name, :last_name, :expectations, :learning_accommodations, :cohort_id, :school_id, :start_date_id, :live_problem_solving, :efforts_to_date, :current_skills, :years_employment, :weekly_hours_work, :graduated, :outgoing_skills, :job_placement_6_months, :expectation_fulfillment, :week_dropped)
     end
 end

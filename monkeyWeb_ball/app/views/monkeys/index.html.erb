@@ -1,3 +1,5 @@
+<h1 class="display-4">Houston Students</h1>
+
 <div class="jumbotron">
   <h4>Below you will see a list of the monkeys at your campus.  Don't see your monkey? Create a new monkey <%= link_to "here", new_monkey_path, class: "btn btn-primary btn-sm" %>.</h4>
   <div class="table-responsive">
@@ -11,7 +13,7 @@
       <tr>
           <td><%= link_to monkey.name, monkey %></td>
           <td><%= monkey.cohort.name %></td>
-          <td><%= monkey.start_date.start_date %></td>
+          <td><%= monkey.start_date.start_date.strftime('%b %d, %Y') %></td>
       </tr>
       <% end %>
     </table>

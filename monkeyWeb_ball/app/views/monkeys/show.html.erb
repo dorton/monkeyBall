@@ -1,6 +1,10 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-3"><%= @monkey.name %></h1>
+    <h1 class="display-2"><%= @monkey.name %></h1>
+    <h1 class="display-4"><%= @monkey.school.city %> - <%= @monkey.cohort.name %></h1>
+    <h1 class="display-4">Start Date - <%= @monkey.start_date.start_date %></h1>
+<hr>
+
     <p class="lead">
       <h1 class="display-4">Incoming Traits</h1>
       <div class="table-responsive">
@@ -28,6 +32,40 @@
           <tr>
             <td>Years Employment</td>
             <td><%= @monkey.years_employment %></td>
+          </tr>
+        </table>
+      </div>
+    </p>
+    <hr>
+    <p class="lead">
+      <h1 class="display-4">Outgoing Traits</h1>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover table-sm table-striped">
+          <tr>
+            <td>Weekly Hours Worked</td>
+            <td><%= @monkey.weekly_hours_work %></td>
+          </tr>
+          <tr>
+            <td>Student Graduated?</td>
+            <td><%= @monkey.graduated %></td>
+          </tr>
+          <% unless @monkey.graduated? %>
+          <tr>
+            <td>Week Dropped</td>
+            <td><%= @monkey.week_dropped %></td>
+          </tr>
+          <% end %>
+          <tr>
+            <td>Outgoing Skills</td>
+            <td><%= @monkey.outgoing_skills %></td>
+          </tr>
+          <tr>
+            <td>Did Student Get a Job Within 6 Months?</td>
+            <td><%= @monkey.job_placement_6_months %></td>
+          </tr>
+          <tr>
+            <td>Where Expectations Fulfilled?</td>
+            <td><%= @monkey.expectation_fulfillment %></td>
           </tr>
         </table>
       </div>

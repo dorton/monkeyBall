@@ -31,12 +31,12 @@ def successRate(field,value,df,metric):
 		successTotal += row[metric]
 		for row in queriedFrame:
 			allTotal = len(queriedFrame)
-		# print successTotal, allTotal
+		print successTotal, allTotal
 	return successTotal * 1.0 / allTotal
 
 
 # READ CSV
-df = pd.read_csv('newMonkeys.csv', sep=',', encoding='utf-8-sig')
+df = pd.read_json(path_or_buf='http://localhost:3000/monkeys.json')
 
 
 if args.action == 'describe':
@@ -46,15 +46,17 @@ if args.action == 'plot':
 	# error check: make sure they passed in both a feature and a metric
 	xVals = sorted(df[args.feature].unique())
 	yVals = [successRate(args.feature,vals,df,args.metric) for vals in xVals]
+	print xVals, yVals
 	plt.plot(xVals,yVals)
 	plt.xlabel(args.feature.replace ("_", " ").upper())
 	plt.ylabel(args.metric.replace ("_", " ").upper())
 	title = ("%s tested against %s." % (args.feature.replace ("_", " "), args.metric.replace ("_", " "))).upper()
 	plt.title(title)
-	try: 
-		plt.savefig(args.outfile)
-	except: 
-		print 'no outfile specified. saving to plot.png'
+	plt.show()
+	# try:
+	# 	plt.savefig(args.outfile)
+	# except:
+	# 	print 'no outfile specified. saving to plot.png'
 	# todos:
 		# spot-check for correctness (done 8/24)
 		# use matplotlib or pyplot to actually make a plot, write it to the outfile. (done 8/24)
