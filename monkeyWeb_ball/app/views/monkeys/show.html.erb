@@ -1,37 +1,185 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-2"><%= @monkey.name %></h1>
+    <h1 class="display-3"><%= @monkey.name %></h1>
     <h1 class="display-4"><%= @monkey.school.city %> - <%= @monkey.cohort.name %></h1>
-    <h1 class="display-4">Start Date - <%= @monkey.start_date.start_date %></h1>
+    <h1 class="display-4">Start Date - <%= @monkey.start_date.start_date.strftime('%b %d, %Y') %></h1>
+    <%= link_to "Edit", edit_monkey_path(@monkey), class: "btn btn-primary" %>
 <hr>
-
+<%= simple_form_for @monkey, :html => { :class => 'form-horizontal' } do |f| %>
     <p class="lead">
       <h1 class="display-4">Incoming Traits</h1>
+<div class="container">
       <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm table-striped">
           <tr>
-            <td>Expectations</td>
-            <td><%= @monkey.learning_accommodations %></td>
+            <td><%= f.input :expectations, collection: ['JOB','RAWSKILL','ENTREP','OTHER'] %></td>
           </tr>
           <tr>
-            <td>Learning Accommodations</td>
-            <td><%= @monkey.learning_accommodations %></td>
+            <td><%= f.input :learning_accommodations, collection: ['LEARNING','EMOTIONAL','PHYSICAL','OTHER','NONE'] %></td>
           </tr>
           <tr>
-            <td>Live Problem Solving</td>
-            <td><%= @monkey.live_problem_solving %></td>
+            <td>
+              <%= f.input :live_problem_solving, collection: 1..5 %>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#liveproblemsolving">
+              Live Problem Solving Rubric
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="liveproblemsolving" tabindex="-1" role="dialog" aria-labelledby="liveproblemsolvingLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="liveproblemsolvingLabel">Live Problem Solving Rubric</h4>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table-bordered table-hover table-sm table-striped">
+                      <tr>
+                        <th>Level 1</th>
+                        <th>Level 2</th>
+                        <th>Level 3</th>
+                        <th>Level 4</th>
+                        <th>Level 5</th>
+                      </tr>
+                      <tr>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>Efforts to Date</td>
-            <td><%= @monkey.efforts_to_date %></td>
+            <td>
+              <%= f.input :efforts_to_date, collection: 1..5 %>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#efforts">
+              Efforts to Date Rubric
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="efforts" tabindex="-1" role="dialog" aria-labelledby="effortsLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="effortsLabel">Efforts to Date Rubric</h4>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table-bordered table-hover table-sm table-striped">
+                      <tr>
+                        <th>Level 1</th>
+                        <th>Level 2</th>
+                        <th>Level 3</th>
+                        <th>Level 4</th>
+                        <th>Level 5</th>
+                      </tr>
+                      <tr>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>Current Skills</td>
-            <td><%= @monkey.current_skills %></td>
+            <td>
+              <%= f.input :current_skills, collection: 1..5 %>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#currentskills">
+              Current Skills Rubric
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="currentskills" tabindex="-1" role="dialog" aria-labelledby="currentskillsLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="currentskillsLabel">Current Skills Rubric</h4>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table-bordered table-hover table-sm table-striped">
+                      <tr>
+                        <th>Level 1</th>
+                        <th>Level 2</th>
+                        <th>Level 3</th>
+                        <th>Level 4</th>
+                        <th>Level 5</th>
+                      </tr>
+                      <tr>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>Years Employment</td>
-            <td><%= @monkey.years_employment %></td>
+            <td>
+              <%= f.input :years_employment, collection: 1..5 %>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#years_employment">
+              Years of Employment Rubric
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="years_employment" tabindex="-1" role="dialog" aria-labelledby="years_employmentLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="years_employmentLabel">Years of Employment Rubric</h4>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table-bordered table-hover table-sm table-striped">
+                      <tr>
+                        <th>Level 1</th>
+                        <th>Level 2</th>
+                        <th>Level 3</th>
+                        <th>Level 4</th>
+                        <th>Level 5</th>
+                      </tr>
+                      <tr>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </td>
           </tr>
         </table>
       </div>
@@ -42,33 +190,107 @@
       <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm table-striped">
           <tr>
-            <td>Weekly Hours Worked</td>
-            <td><%= @monkey.weekly_hours_work %></td>
+            <td>
+              <%= f.input :weekly_hours_work, collection: 1..5 %>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#weeklyhours">
+              Weekly Hours Worked Rubric
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="weeklyhours" tabindex="-1" role="dialog" aria-labelledby="weeklyhoursLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="weeklyhoursLabel">Weekly Hours Worked Rubric</h4>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table-bordered table-hover table-sm table-striped">
+                      <tr>
+                        <th>Level 1</th>
+                        <th>Level 2</th>
+                        <th>Level 3</th>
+                        <th>Level 4</th>
+                        <th>Level 5</th>
+                      </tr>
+                      <tr>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+            </td>
           </tr>
           <tr>
-            <td>Student Graduated?</td>
-            <td><%= @monkey.graduated %></td>
+            <td><%= f.input :graduated %></td>
           </tr>
           <% unless @monkey.graduated? %>
           <tr>
-            <td>Week Dropped</td>
-            <td><%= @monkey.week_dropped %></td>
+            <td><%= f.input :week_dropped, collection: 1..12 %></td>
           </tr>
           <% end %>
           <tr>
-            <td>Outgoing Skills</td>
-            <td><%= @monkey.outgoing_skills %></td>
+            <td>
+              <%= f.input :outgoing_skills, collection: 1..5 %>
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#outgoing_skills">
+              Outgoing Skills Rubric
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="outgoing_skills" tabindex="-1" role="dialog" aria-labelledby="outgoing_skillsLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="outgoing_skillsLabel">Outgoing Skills Rubric</h4>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table-bordered table-hover table-sm table-striped">
+                      <tr>
+                        <th>Level 1</th>
+                        <th>Level 2</th>
+                        <th>Level 3</th>
+                        <th>Level 4</th>
+                        <th>Level 5</th>
+                      </tr>
+                      <tr>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                        <td><%= Faker::Hipster.paragraph(3) %></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+            </td>
           </tr>
           <tr>
-            <td>Did Student Get a Job Within 6 Months?</td>
-            <td><%= @monkey.job_placement_6_months %></td>
+            <td><%= f.input :job_placement_6_months %></td>
           </tr>
           <tr>
-            <td>Where Expectations Fulfilled?</td>
-            <td><%= @monkey.expectation_fulfillment %></td>
+            <td><%= f.input :expectation_fulfillment %></td>
           </tr>
         </table>
       </div>
     </p>
+    <%= f.button :submit, :class => 'btn-primary' %>
+  <% end %>
+</div>
   </div>
 </div>

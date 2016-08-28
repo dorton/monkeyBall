@@ -1,21 +1,39 @@
-<h1 class="display-4">Houston Students</h1>
-
 <div class="jumbotron">
   <h4>Below you will see a list of the monkeys at your campus.  Don't see your monkey? Create a new monkey <%= link_to "here", new_monkey_path, class: "btn btn-primary btn-sm" %>.</h4>
-  <div class="table-responsive">
-    <table class="table table-hover table-striped table-sm">
-      <tr>
-        <th>Name</th>
-        <th>Class</th>
-        <th>Start Date</th>
-      </tr>
-      <% @monkeys.each do |monkey| %>
-      <tr>
-          <td><%= link_to monkey.name, monkey %></td>
-          <td><%= monkey.cohort.name %></td>
-          <td><%= monkey.start_date.start_date.strftime('%b %d, %Y') %></td>
-      </tr>
-      <% end %>
-    </table>
+<hr>
+<% @monkeys.group_by(&:start_date).each do |start_date, monkeys| %>
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id=<%= start_date.id %> >
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= start_date.id %>" aria-expanded="false" aria-controls="collapse<%= start_date.id %>">
+          <h2><%= start_date.start_date.strftime('%B %d, %Y') %> Cohort</h2>
+        </a>
+      </h4>
+    </div>
+    <% monkeys.group_by(&:cohort).each do |cohort, monkeys| %>
+      <div id="collapse<%= start_date.id %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby=<%= start_date.id %>>
+        <h3><%= cohort.name %></h3>
+          <div class="table-responsive">
+            <table class="table table-hover table-striped table-sm">
+                <tr>
+                  <th>Name</th>
+                  <th>Class</th>
+                  <th>Start Date</th>
+                </tr>
+              <% monkeys.each do |monkey| %>
+                <tr>
+                  <td><%= link_to monkey.name, monkey %></td>
+                  <td><%= monkey.cohort.name %></td>
+                  <td><%= monkey.start_date.start_date.strftime('%b %d, %Y') %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        <% end %>
+    </div>
   </div>
+</div>
+<hr>
+<% end %>
 </div>

@@ -6,21 +6,21 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-schools = School.create([{ city: 'Houston'}, {city: 'Austin'}, {city: 'San Antonio'}])
-cohorts = Cohort.create([{ name: 'JS'}, {name: 'iOS'}, {name: '.NET'}])
-start_dates = StartDate.create([{ start_date: '2016-09-26' }, { start_date: '2016-05-23' }])
+schools = School.create([{ city: 'Houston'}])
+cohorts = Cohort.create([{ name: 'JS'}, {name: 'iOS'}, {name: '.NET'}, {name: 'Rails'}])
+start_dates = StartDate.create([{ start_date: '2016-09-26' }, { start_date: '2016-05-23' }, { start_date: '2016-02-01' }, { start_date: '2015-08-24' }, { start_date: '2015-05-04' }, { start_date: '2015-01-05' }, { start_date: '2014-09-24' }, { start_date: '2014-06-02' }])
 
 def create_monkeys(school, cohort, start_date)
   monkey = Monkey.new
-  monkey.first_name = Faker::Name.first_name
-  monkey.last_name = Faker::Name.last_name
+  monkey.first_name = Faker::StarWars.character.split(' ').first
+  monkey.last_name = Faker::StarWars.character.split(' ').last
   monkey.expectations = ['JOB','RAWSKILL','ENTREP','OTHER'].sample
   monkey.learning_accommodations = ['LEARNING','EMOTIONAL','PHYSICAL','OTHER','NONE'].sample
   monkey.live_problem_solving = [1,2,3,4,5].sample
   monkey.efforts_to_date = [1,2,3,4,5].sample
   monkey.current_skills = [1,2,3,4,5].sample
-  monkey.years_employment = rand(1..25)
-  monkey.weekly_hours_work = rand(10..30)
+  monkey.years_employment = rand(1..5)
+  monkey.weekly_hours_work = rand(1..5)
   monkey.graduated = Faker::Boolean.boolean(0.8)
   monkey.outgoing_skills = [1,2,3,4,5].sample
   monkey.job_placement_6_months = Faker::Boolean.boolean(0.8)
@@ -32,14 +32,42 @@ def create_monkeys(school, cohort, start_date)
   monkey
 end
 
-100.times do
-  school = School.all.sample
-  cohort = Cohort.all.sample
-  start_date = StartDate.all.sample
-  monkey = create_monkeys(school, cohort, start_date)
-  if monkey.graduated?
-    monkey.update_attributes(week_dropped: 'n/a')
-  else
-    monkey.update_attributes(week_dropped: rand(1..11))
+
+School.all.each do |school|
+  StartDate.where('start_date <= ?', '2016-05-23').each do |start_date|
+    Cohort.where(name: ['JS', 'Rails']).each do |cohort|
+      rand(6..10).times do
+        monkey = create_monkeys(school, cohort, start_date)
+        if monkey.graduated?
+          monkey.update_attributes(week_dropped: 'n/a')
+        else
+          monkey.update_attributes(week_dropped: rand(1..11))
+        end
+      end
+    end
+  end
+  StartDate.where('start_date >= ?', '2016-05-23').each do |start_date|
+    Cohort.where(name: ['JS', 'iOS']).each do |cohort|
+      rand(6..10).times do
+        monkey = create_monkeys(school, cohort, start_date)
+        if monkey.graduated?
+          monkey.update_attributes(week_dropped: 'n/a')
+        else
+          monkey.update_attributes(week_dropped: rand(1..11))
+        end
+      end
+    end
+  end
+  StartDate.where('start_date >= ?', '2016-09-26').each do |start_date|
+    Cohort.where(name: ['JS', 'iOS', '.NET']).each do |cohort|
+      rand(6..10).times do
+        monkey = create_monkeys(school, cohort, start_date)
+        if monkey.graduated?
+          monkey.update_attributes(week_dropped: 'n/a')
+        else
+          monkey.update_attributes(week_dropped: rand(1..11))
+        end
+      end
+    end
   end
 end

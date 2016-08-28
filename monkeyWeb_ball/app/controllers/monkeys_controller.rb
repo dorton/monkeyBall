@@ -5,6 +5,7 @@ class MonkeysController < ApplicationController
   # GET /monkeys.json
   def index
     @monkeys = Monkey.joins(:start_date).order("start_dates.start_date DESC").joins(:cohort).order("cohorts.name").order("monkeys.last_name")
+
   end
 
   # GET /monkeys/1
