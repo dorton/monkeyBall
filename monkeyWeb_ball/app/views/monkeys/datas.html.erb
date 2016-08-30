@@ -1,14 +1,14 @@
 
 
-Incoming
-<select id="selectIncoming" name="feature">
+<h1 class="display-4">Incoming</h1>
+<select class="form-control" id="selectIncoming" name="feature">
   <% Monkey.first.attributes.keys.each do |key| %>
     <option value="<%= key %>"><%= key %></option>
   <% end %>
 </select>
 
-Outgoing
-<select id="selectOutgoing" name="feature">
+<h1 class="display-4">Outgoing</h1>
+<select class="form-control" id="selectOutgoing" name="feature">
   <% Monkey.first.attributes.keys.each do |key| %>
     <option value="<%= key %>"><%= key %></option>
   <% end %>
