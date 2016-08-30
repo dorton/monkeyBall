@@ -66,6 +66,7 @@ if args.action == 'plot':
 		filename = '%s-by-%s.png' % (args.metric,args.feature)
 		print 'no outfile specified. saving to %s' % filename
 		plt.savefig(filename)
+
 	# todos:
 		# spot-check for correctness (done 8/24)
 		# use matplotlib or pyplot to actually make a plot, write it to the outfile. (done 8/24)
