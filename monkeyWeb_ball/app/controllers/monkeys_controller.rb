@@ -62,6 +62,27 @@ class MonkeysController < ApplicationController
     end
   end
 
+
+  def plot
+    puts 'doin a plots'
+    pathParts = Dir.pwd.split('/')
+    pathParts.pop()
+    path = pathParts.join('/') + '/analysis.py'
+    metric,feature = params[:metric], params[:feature]
+    filename = "#{metric}-by-#{feature}.png"
+    outpath = Dir.pwd + '/app/assets/images/' + filename
+    `python #{path} -a plot -f #{feature} -m #{metric} -d '#{Monkey.all.to_json}' -o #{outpath}`
+    puts 'did a plot'
+    puts outpath
+    respond_to do |format|
+      format.json { render json: Hash["filename"=>filename] }
+    end
+  end
+
+  def datas
+    #code
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_monkey

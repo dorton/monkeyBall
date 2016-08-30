@@ -1,0 +1,23 @@
+
+
+Incoming
+<select id="selectIncoming" name="feature">
+  <% Monkey.first.attributes.keys.each do |key| %>
+    <option value="<%= key %>"><%= key %></option>
+  <% end %>
+</select>
+
+Outgoing
+<select id="selectOutgoing" name="feature">
+  <% Monkey.first.attributes.keys.each do |key| %>
+    <option value="<%= key %>"><%= key %></option>
+  <% end %>
+</select>
+
+<br>
+<button id="plotBtn" class="btn btn-warning" type="data" name="data">Plot!</button>
+
+
+
+<div id="plotContainer">
+</div>
