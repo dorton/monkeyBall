@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 parser = argparse.ArgumentParser(description='A command-line tool for analyzing a csv of incoming and outgoing student metrics.')
 
 parser.add_argument('-a','--action',
-	choices = ['describe','plot'],
+	choices = ['describe','grid','line'],
 	required = True,
 	help = 'the type of analysis you would like to do.')
 parser.add_argument('-f','--feature',
@@ -22,19 +22,37 @@ parser.add_argument('-d','--dataset',
 parser.add_argument('-o','--outfile',
 	type = str,
 	help = 'the file to which you want to write your data plots.')
+parser.add_argument('-s','--show',
+	action = 'store_true',
+	help = 'show plot instead of saving it.')
 
 args = parser.parse_args()
+
+
+# DEFINING TYPES FOR COLUMNS
+
+columns = {
+	'job_placement_6_months': {
+		'dataType': 'binary'
+	},
+	'graduated': {
+		'dataType': 'binary'
+	},
+	'expectation_fulfillment': {
+		'dataType': 'binary'
+	},
+	'week_dropped': {
+		'dataType': 'count'
+	},
+	'weekly_hours_work': {
+		'dataType': 'likkert'
+	},
+}
 
 # HELPER FUNCTIONS
 def successRate(field,value,df,metric):
 	queriedFrame = df.loc[df[field] == value]
-	successTotal = 0
-	for i,row in queriedFrame.iterrows():
-		successTotal += row[metric]
-		for row in queriedFrame:
-			allTotal = len(queriedFrame)
-	return successTotal * 1.0 / allTotal
-
+	return queriedFrame[metric].mean()
 
 # READ CSV
 try:
@@ -50,16 +68,26 @@ df = pd.read_json(path_or_buf=jsonString)
 if args.action == 'describe':
 	print(df.describe())
 
-if args.action == 'plot':
+if args.action in ['line','grid']:
 	# error check: make sure they passed in both a feature and a metric
 	xVals = sorted(df[args.feature].unique())
-	yVals = [successRate(args.feature,vals,df,args.metric) for vals in xVals]
-	plt.plot(xVals,yVals)
+	if columns[args.metric]['dataType'] in ['binary','count','likkert']:
+		if args.action == 'line':
+			yVals = [successRate(args.feature,vals,df,args.metric) for vals in xVals]
+			xPositions = range(len(xVals))
+			plt.plot(xPositions,yVals)
+			plt.xticks(xPositions,xVals)
+		if args.action == 'grid':
+			xVals = df[args.feature].tolist()
+			yVals = df[args.metric].tolist()
+			plt.scatter(xVals,yVals, s=[1000 for val in xVals], alpha=.05)
 	plt.xlabel(args.feature.replace ("_", " ").upper())
 	plt.ylabel(args.metric.replace ("_", " ").upper())
 	title = ("%s tested against %s." % (args.feature.replace ("_", " "), args.metric.replace ("_", " "))).upper()
 	plt.title(title)
-	# plt.show()
+	if args.show:
+		plt.show()
+		exit(1)
 	try:
 		plt.savefig(args.outfile)
 	except:
