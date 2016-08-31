@@ -1,4 +1,4 @@
-# json.extract! monkey, :name, :expectations, :learning_accommodations, :live_problem_solving, :efforts_to_date, :current_skills, :years_employment, :weekly_hours_work, :graduated, :week_dropped, :outgoing_skills, :job_placement_6_months, :expectation_fulfillment, :school, :cohort, :start_date
+json.extract! monkey, :name, :expectations, :learning_accommodations, :live_problem_solving, :efforts_to_date, :current_skills, :years_employment, :weekly_hours_work, :graduated, :week_dropped, :outgoing_skills, :job_placement_6_months, :expectation_fulfillment, :school, :cohort, :start_date
 #
 # json.monkeys @monkeys do |monkey|
 #   json.name monkey.name
