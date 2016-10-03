@@ -1,4 +1,10 @@
 
+<h1 class="display-4">Action</h1>
+<select class="form-control" id="selectAction" name="action">
+  <% Action.all.each do |action| %>
+    <option value="<%= action.name %>"><%= action.name %></option>
+  <% end %>
+</select> <%= link_to "New Action?", new_action_path, class: "btn btn-primary" %>
 
 <h1 class="display-4">Incoming</h1>
 <select class="form-control" id="selectIncoming" name="feature">

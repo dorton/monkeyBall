@@ -69,9 +69,10 @@ class MonkeysController < ApplicationController
     pathParts.pop()
     path = pathParts.join('/') + '/analysis.py'
     metric,feature = params[:metric], params[:feature]
+    theaction = params[:theaction]
     filename = "#{metric}-by-#{feature}.png"
     outpath = Dir.pwd + '/app/assets/images/' + filename
-    `python #{path} -a plot -f #{feature} -m #{metric} -d '#{Monkey.all.to_json}' -o #{outpath}`
+    `python #{path} -a #{theaction} -f #{feature} -m #{metric} -d '#{Monkey.all.to_json}' -o #{outpath}`
     puts 'did a plot'
     puts outpath
     respond_to do |format|

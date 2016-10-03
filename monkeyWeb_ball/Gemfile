@@ -24,7 +24,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'simple_form'
 gem 'twitter-bootstrap-rails'
-gem 'pry'
+gem 'pry-rails', :group => :development
 gem 'faker'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

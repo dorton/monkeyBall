@@ -12,10 +12,12 @@ document.onready = function() {
   var plotButtonEl = qs("#plotBtn")
 
   plotButtonEl.addEventListener('click',function(){
+    var theaction = qs("#selectAction").value
     var feature = qs("#selectIncoming").value
     var metric = qs("#selectOutgoing").value
     var promise = $.getJSON('/plot.json',
       {
+        theaction: theaction,
         feature: feature,
         metric: metric
       }
